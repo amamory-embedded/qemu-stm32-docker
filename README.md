@@ -4,7 +4,6 @@
 
 Dockerfile for qemu for STM32 devices on Ubuntu 18.04
 
-
 ## Downloading
 
 ```
