@@ -1,6 +1,6 @@
-# stm32-dev-docker
+# docker image for STM32 Develpment
 
-[![Docker Hub](https://img.shields.io/docker/pulls/amamory/stm32-dev.svg?style=flat-square)](https://hub.docker.com/r/amamory/stm32-dev/)
+[![Docker Hub](https://img.shields.io/docker/pulls/amamory/qemu-stm32.svg?style=flat-square)](https://hub.docker.com/r/amamory/qemu-stm32/)
 
 Dockerfile for qemu for STM32 devices on Ubuntu 18.04 including some nice programming environments, libraries, and examples such as:  
  - https://github.com/beckus/stm32_p103_demos.git
@@ -10,27 +10,27 @@ Dockerfile for qemu for STM32 devices on Ubuntu 18.04 including some nice progra
 ## Downloading
 
 ```
-$ docker pull amamory/stm32-dev
+$ docker pull amamory/qemu-stm32
 ```
 
 ## Building the Software
 
 ```
-$ docker run --rm -v $PWD:/work stm32-dev \
+$ docker run --rm -v $PWD:/work qemu-stm32 \
   riscv32-unknown-elf-gcc -march=rv32g hello.c -o hello
 ```
 
 ## Running and existing example
 
 ```
-$ docker run --rm amamory/stm32-dev /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32_p103_demos/demos/freertos_singlethread/main.bin
-$ docker run --rm amamory/stm32-dev /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-book/miniblink/miniblink.elf
-$ docker run --rm amamory/stm32-dev /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-base/templates/blink/bin/stm32_executable.elf
+$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32_p103_demos/demos/freertos_singlethread/main.bin
+$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-book/miniblink/miniblink.elf
+$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-base/templates/blink/bin/stm32_executable.elf
 ```
 
 ## Compiling and running your own example
 
 
 ```
-$ docker run --rm -v $PWD:/work stm32-dev  ./hello
+$ docker run --rm -v $PWD:/work qemu-stm32  ./hello
 ```
