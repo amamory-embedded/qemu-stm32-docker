@@ -8,7 +8,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 #qemu depedencies
 RUN apt-get -y update && \
     apt-get -y install --no-install-recommends apt-transport-https ca-certificates curl software-properties-common \
-    git cmake pkg-config valgrind flex bison wget tzdata 
+    git cmake pkg-config valgrind flex bison wget tzdata libncurses5 
 # bigger packages
 #RUN apt-get -y install --no-install-recommends libglib2.0-dev zlib1g libpixman-1-dev libsdl1.2-dev libgtk3.0-cil-dev libvte-dev && \
 #    apt-get purge -y --auto-remove
@@ -75,5 +75,5 @@ RUN cd /usr/src/app/stm32/stm32-book/rtos && rm -rf FreeRTOSv10.2.1.zip
 
 # setting up 
 RUN echo "alias ll='ls -alFh'" >> ~/.bashrc
-RUN echo "alias qemu-arm='qemu-system-arm -machine stm32-f103c8 -nographic -kernel '" >> ~/.bashrc
-RUN echo "alias qemu-arm-gdb='qemu-system-arm -machine stm32-f103c8 -S -gdb tcp::1234  -kernel '" >> ~/.bashrc
+RUN echo "alias qemu-arm='qemu-system-arm -machine stm32-p103 -nographic -kernel '" >> ~/.bashrc
+RUN echo "alias qemu-arm-gdb='qemu-system-arm -machine stm32-p103 -S -gdb tcp::1234  -kernel '" >> ~/.bashrc
