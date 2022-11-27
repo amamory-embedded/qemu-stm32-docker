@@ -13,24 +13,40 @@ Dockerfile for qemu for STM32 devices on Ubuntu 18.04 including some nice progra
 $ docker pull amamory/qemu-stm32
 ```
 
-## Building the Software
-
-```
-$ docker run --rm -v $PWD:/work qemu-stm32 \
-  riscv32-unknown-elf-gcc -march=rv32g hello.c -o hello
-```
-
 ## Running and existing example
 
 ```
-$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32_p103_demos/demos/freertos_singlethread/main.bin
-$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-book/miniblink/miniblink.elf
-$ docker run --rm amamory/qemu-stm32 /usr/local/bin/qemu-system-arm -nographic -M stm32-f103c8 -kernel /usr/src/app/stm32/stm32-base/templates/blink/bin/stm32_executable.elf
+$ docker run --name stm32 -it --rm -v $PWD:/work amamory/qemu-stm32 qemu-system-arm \
+  -M stm32-p103 -s \
+  -kernel /usr/src/app/stm32/stm32_p103_demos/demos/freertos_singlethread/main.elf
 ```
 
-## Compiling and running your own example
-
+## Debugging the example in the running container
 
 ```
-$ docker run --rm -v $PWD:/work qemu-stm32  ./hello
+$ docker exec -it stm32 arm-none-eabi-gdb  /usr/src/app/stm32/stm32_p103_demos/demos/freertos_singlethread/main.elf
+```
+
+## Building an existing example inside container
+
+```
+$ docker run -it --rm -v $PWD:/work amamory/qemu-stm32 bash 
+
+$ make -C ./stm32_p103_demos/ clean freertos_singlethread_ALL
+```
+
+## Building your own projects
+
+```
+$ docker run -it --rm -v $PWD:/work amamory/qemu-stm32 arm-none-eabi-gcc \
+  -mcpu=cortex-m3 \
+  hello_app.c -o hello_app
+```
+
+## Running your own project
+
+```
+$ docker run --rm -v $PWD:/work amamory/qemu-stm32  qemu-system-arm \
+  -M stm32-p103 -s \
+  -kernel ./hello
 ```
